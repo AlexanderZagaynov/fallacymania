@@ -17,6 +17,7 @@ gem 'uglifier'
 gem 'jbuilder'
 
 gem 'http_accept_language'
+gem 'globalize'
 
 group :development, :test do
   gem 'byebug'

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class FallacySampleTest < ActiveSupport::TestCase
+class SophismTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
