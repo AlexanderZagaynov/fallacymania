@@ -21,7 +21,8 @@ html lang="#{I18n.locale}"
         a.navbar-brand href=root_path FallacyMania!
       #top-nav.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-left
-          li: a Fallacies
+          li class=('active' if controller_name == 'fallacies')
+            a href=fallacies_path Fallacies
         ul.nav.navbar-nav.navbar-right
           li: a Sign Up / Log In
     main
