@@ -16,6 +16,8 @@ gem 'uglifier'
 
 gem 'jbuilder'
 
+gem 'http_accept_language'
+
 group :development, :test do
   gem 'byebug'
   gem 'web-console'

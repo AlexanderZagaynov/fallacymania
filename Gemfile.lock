@@ -62,6 +62,7 @@ GEM
     execjs (2.5.2)
     globalid (0.3.5)
       activesupport (>= 4.1.0)
+    http_accept_language (2.0.5)
     i18n (0.7.0)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
@@ -173,6 +174,7 @@ DEPENDENCIES
   bootstrap-sass
   byebug
   coffee-rails
+  http_accept_language
   jbuilder
   jquery-rails
   letter_opener
