@@ -18,6 +18,7 @@ gem 'jbuilder'
 
 gem 'http_accept_language'
 gem 'globalize'
+gem 'friendly_id'
 
 group :development, :test do
   gem 'byebug'
