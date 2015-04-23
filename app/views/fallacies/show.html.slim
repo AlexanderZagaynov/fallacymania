@@ -1,0 +1,20 @@
+- Globalize.with_locale(@locale)
+  .panel.panel-default
+    .panel-heading
+      .panel-title
+        = @fallacy.name
+        .pull-right
+          .btn-toolbar role='toolbar'
+            .btn-group role='group'
+              - I18n.available_locales.each do |locale|
+                a.btn.btn-info.btn-xs href=fallacy_path(@fallacy, locale) class=(:active if locale == @locale)
+                  = locale
+            .btn-group role='group'
+              a.btn.btn-warning.btn-xs href=edit_fallacy_path(@fallacy, locale: @locale)
+                span.glyphicon.glyphicon-edit
+    .panel-body
+      .media
+        .media-left
+          img.media-object width='64px' height='64px'
+        .media-body
+          = @fallacy.description
