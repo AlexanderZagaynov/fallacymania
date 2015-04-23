@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422191949) do
+ActiveRecord::Schema.define(version: 20150423014453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,24 +49,24 @@ ActiveRecord::Schema.define(version: 20150422191949) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "sophism_translations", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "sophism_id",  null: false
-    t.string   "locale",      null: false
+  create_table "statement_translations", force: :cascade do |t|
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "statement_id", null: false
+    t.string   "locale",       null: false
     t.text     "description"
   end
 
-  add_index "sophism_translations", ["locale"], name: "index_sophism_translations_on_locale", using: :btree
-  add_index "sophism_translations", ["sophism_id"], name: "index_sophism_translations_on_sophism_id", using: :btree
+  add_index "statement_translations", ["locale"], name: "index_statement_translations_on_locale", using: :btree
+  add_index "statement_translations", ["statement_id"], name: "index_statement_translations_on_statement_id", using: :btree
 
-  create_table "sophisms", force: :cascade do |t|
+  create_table "statements", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "fallacy_id", null: false
   end
 
-  add_index "sophisms", ["fallacy_id"], name: "index_sophisms_on_fallacy_id", using: :btree
+  add_index "statements", ["fallacy_id"], name: "index_statements_on_fallacy_id", using: :btree
 
-  add_foreign_key "sophisms", "fallacies"
+  add_foreign_key "statements", "fallacies"
 end
