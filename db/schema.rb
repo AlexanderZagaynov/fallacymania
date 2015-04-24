@@ -11,18 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423014453) do
+ActiveRecord::Schema.define(version: 20150424001332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "fallacies", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "slug",       null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "slug",         null: false
+    t.integer  "statement_id"
   end
 
   add_index "fallacies", ["slug"], name: "index_fallacies_on_slug", using: :btree
+  add_index "fallacies", ["statement_id"], name: "index_fallacies_on_statement_id", unique: true, using: :btree
 
   create_table "fallacy_translations", force: :cascade do |t|
     t.datetime "created_at",  null: false
