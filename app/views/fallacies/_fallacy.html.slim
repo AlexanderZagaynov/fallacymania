@@ -1,17 +1,20 @@
+- in_game = local_assigns[:game]
+
 .panel.panel-default
   .panel-heading
     .panel-title
       a href=fallacy_path(fallacy, locale: I18n.locale)
         = fallacy.name
-      .pull-right
-        .btn-toolbar role='toolbar'
-          .btn-group role='group'
-            - I18n.available_locales.each do |locale|
-              a.btn.btn-info.btn-xs href=fallacy_path(fallacy, locale)
-                = locale
-          .btn-group role='group'
-            a.btn.btn-warning.btn-xs href=edit_fallacy_path(fallacy, locale: I18n.locale)
-              span.glyphicon.glyphicon-edit
+      - unless in_game
+        .pull-right
+          .btn-toolbar role='toolbar'
+            .btn-group role='group'
+              - I18n.available_locales.each do |locale|
+                a.btn.btn-info.btn-xs href=fallacy_path(fallacy, locale)
+                  = locale
+            .btn-group role='group'
+              a.btn.btn-warning.btn-xs href=edit_fallacy_path(fallacy, locale: I18n.locale)
+                span.glyphicon.glyphicon-edit
   .panel-body
     .media
       .media-left
@@ -19,3 +22,7 @@
           img.media-object width='64px' height='64px'
       .media-body
         = fallacy.description
+  - if in_game
+    .panel-footer
+      .text-right
+        = link_to 'Select this fallacy', game_commit_path(fallacy: fallacy), method: :post

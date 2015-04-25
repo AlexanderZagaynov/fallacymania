@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
 
+  controller :game, as: :game, path: :game, format: false do
+    get :show, path: '', format: nil
+    post :start
+    put 'difficulty/:level', action: :difficulty, as: :difficulty
+    post 'commit/:fallacy', action: :commit, as: :commit
+  end
+
   resources :fallacies, only: :index do
     member do
       get '/:locale', action: :show, as: ''

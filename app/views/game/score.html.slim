@@ -1,0 +1,26 @@
+.jumbotron
+  h2 = @statement.description
+
+  br
+  p
+    | Your answer is:
+    strong<> = @fallacy.name
+
+  - if @statement.fallacy == @fallacy
+    p.text-success You answer is correct!
+
+  - else
+    p.text-danger You gave a wrong answer :(
+    br
+    p
+      | Correct answer is:
+      strong<> = @statement.fallacy.name
+
+  p
+    small
+      em
+        = @statement.fallacy.description
+
+  br
+  p
+    = link_to 'Start a new game?', game_start_path, method: :post, class: 'btn btn-primary btn-lg'

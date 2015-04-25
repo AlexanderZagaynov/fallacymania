@@ -5,4 +5,4 @@
     br
     | You read the statement, and try to guess which fallacy is there.
   p
-    a.btn.btn-primary.btn-lg role='button' Try it!
+    = link_to 'Try it!', game_start_path, method: :post, class: 'btn btn-primary btn-lg'
