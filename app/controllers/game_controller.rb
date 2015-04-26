@@ -43,6 +43,14 @@ class GameController < ApplicationController
   end
 
   def commit
+    # #session[:result] =
+    # current_user.results.create! do |result|
+    #   result.statement = Statement.includes(:fallacy).find(session[:statement])
+    #   result.fallacy = Fallacy.find(session[:fallacy])
+    #   result.correct = (result.statement.fallacy == result.fallacy)
+    #   result.locale = session[:locale]
+    #   result.difficulty = session[:difficulty]
+    # end
     session[:fallacy] = params[:fallacy] unless session[:fallacy]
     redirect_to action: :show
   end

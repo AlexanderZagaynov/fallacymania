@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
         http_accept_language.compatible_language_from(I18n.available_locales)
   end
 
+  # def current_user
+  #   session.user
+  # end
+
 end

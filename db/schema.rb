@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426115628) do
+ActiveRecord::Schema.define(version: 20150426142644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,22 @@ ActiveRecord::Schema.define(version: 20150426115628) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+
+  create_table "results", force: :cascade do |t|
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "user_id",                      null: false
+    t.integer  "statement_id",                 null: false
+    t.integer  "fallacy_id",                   null: false
+    t.boolean  "correct",      default: false, null: false
+    t.string   "locale",       default: "",    null: false
+    t.integer  "difficulty",   default: 0,     null: false
+  end
+
+  add_index "results", ["correct"], name: "index_results_on_correct", using: :btree
+  add_index "results", ["difficulty"], name: "index_results_on_difficulty", using: :btree
+  add_index "results", ["user_id", "statement_id"], name: "index_results_on_user_id_and_statement_id", unique: true, using: :btree
+  add_index "results", ["user_id"], name: "index_results_on_user_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -91,6 +107,9 @@ ActiveRecord::Schema.define(version: 20150426115628) do
 
   add_index "users", ["guest"], name: "index_users_on_guest", using: :btree
 
+  add_foreign_key "results", "fallacies"
+  add_foreign_key "results", "statements"
+  add_foreign_key "results", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "statements", "fallacies"
 end
