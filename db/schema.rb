@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426095718) do
+ActiveRecord::Schema.define(version: 20150426115628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,10 +56,12 @@ ActiveRecord::Schema.define(version: 20150426095718) do
     t.datetime "updated_at", null: false
     t.string   "session_id", null: false
     t.text     "data"
+    t.integer  "user_id",    null: false
   end
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
   add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
   create_table "statement_translations", force: :cascade do |t|
     t.datetime "created_at",   null: false
@@ -80,5 +82,15 @@ ActiveRecord::Schema.define(version: 20150426095718) do
 
   add_index "statements", ["fallacy_id"], name: "index_statements_on_fallacy_id", using: :btree
 
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "guest",      default: false, null: false
+    t.string   "name"
+  end
+
+  add_index "users", ["guest"], name: "index_users_on_guest", using: :btree
+
+  add_foreign_key "sessions", "users"
   add_foreign_key "statements", "fallacies"
 end
