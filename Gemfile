@@ -16,6 +16,7 @@ gem 'uglifier'
 
 gem 'jbuilder'
 
+gem 'activerecord-session_store'
 gem 'http_accept_language'
 gem 'globalize'
 gem 'friendly_id'
