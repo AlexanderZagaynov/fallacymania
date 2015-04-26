@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426142644) do
+ActiveRecord::Schema.define(version: 20150426204110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,18 +67,6 @@ ActiveRecord::Schema.define(version: 20150426142644) do
   add_index "results", ["user_id", "statement_id"], name: "index_results_on_user_id_and_statement_id", unique: true, using: :btree
   add_index "results", ["user_id"], name: "index_results_on_user_id", using: :btree
 
-  create_table "sessions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string   "session_id", null: false
-    t.text     "data"
-    t.integer  "user_id",    null: false
-  end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
-  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
-
   create_table "statement_translations", force: :cascade do |t|
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -110,6 +98,5 @@ ActiveRecord::Schema.define(version: 20150426142644) do
   add_foreign_key "results", "fallacies"
   add_foreign_key "results", "statements"
   add_foreign_key "results", "users"
-  add_foreign_key "sessions", "users"
   add_foreign_key "statements", "fallacies"
 end
