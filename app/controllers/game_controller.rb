@@ -2,11 +2,11 @@ class GameController < ApplicationController
   HARD_LEVEL_SIZE, NORMAL_LEVEL_SIZE, EASY_LEVEL_SIZE = 20, 10, 3
 
   def show
-    @statement = Statement.find(session[:statement])
-    if session[:fallacy]
-      @fallacy = Fallacy.find(session[:fallacy])
+    if session[:result]
+      @result = Result.includes(:fallacy, statement: :fallacy).find(session[:result])
       render :score
     else
+      @statement = Statement.find(session[:statement])
       @fallacies = Fallacy.find(session[:fallacies]).shuffle!
       @levels = { hard: HARD_LEVEL_SIZE, normal: NORMAL_LEVEL_SIZE, easy: EASY_LEVEL_SIZE }
     end
@@ -20,7 +20,7 @@ class GameController < ApplicationController
     session[:difficulty] = difficulty
     session[:statement] = statement_id
     session[:fallacies] = fallacy_ids
-    session[:fallacy] = nil
+    session[:result] = nil
 
     redirect_to action: :show
   end
@@ -43,15 +43,16 @@ class GameController < ApplicationController
   end
 
   def commit
-    # #session[:result] =
-    # current_user.results.create! do |result|
-    #   result.statement = Statement.includes(:fallacy).find(session[:statement])
-    #   result.fallacy = Fallacy.find(session[:fallacy])
-    #   result.correct = (result.statement.fallacy == result.fallacy)
-    #   result.locale = session[:locale]
-    #   result.difficulty = session[:difficulty]
-    # end
-    session[:fallacy] = params[:fallacy] unless session[:fallacy]
+    unless session[:result]
+      result = current_user.results.build
+      result.statement = Statement.includes(:fallacy).find(session[:statement])
+      result.fallacy = Fallacy.find(session[:fallacy])
+      result.correct = (result.statement.fallacy == result.fallacy)
+      result.locale = session[:locale]
+      result.difficulty = session[:difficulty]
+      result.save!
+      session[:result] = result.id
+    end
     redirect_to action: :show
   end
 

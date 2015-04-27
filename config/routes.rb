@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     post 'commit/:fallacy', action: :commit, as: :commit
   end
 
+  get :results, controller: :results, action: :index
+
   resources :fallacies, only: :index do
     member do
       get '/:locale', action: :show, as: ''

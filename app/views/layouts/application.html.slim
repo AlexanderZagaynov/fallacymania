@@ -24,6 +24,8 @@ html lang="#{I18n.locale}"
           li class=('active' if controller_name == 'fallacies')
             a href=fallacies_path Fallacies
         ul.nav.navbar-nav.navbar-right
+          li class=('active' if controller_name == 'results')
+            a href=results_path My results
           li
             p.navbar-text
               | Language:

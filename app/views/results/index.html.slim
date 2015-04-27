@@ -1,0 +1,8 @@
+ul.media-list
+  - @results.each do |result|
+    li.media
+      .media-left
+        img.media-object width='64px' height='64px'
+      .media-body
+        .media-heading
+          = result.statement.description

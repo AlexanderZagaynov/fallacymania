@@ -1,12 +1,12 @@
 .jumbotron
-  h2 = @statement.description
+  h2 = @result.statement.description
 
   br
   p
     | Your answer is:
-    strong<> = @fallacy.name
+    strong<> = @result.fallacy.name
 
-  - if @statement.fallacy == @fallacy
+  - if @result.correct
     p.text-success You answer is correct!
 
   - else
@@ -14,12 +14,12 @@
     br
     p
       | Correct answer is:
-      strong<> = @statement.fallacy.name
+      strong<> = @result.statement.fallacy.name
 
   p
     small
       em
-        = @statement.fallacy.description
+        = @result.statement.fallacy.description
 
   br
   p
