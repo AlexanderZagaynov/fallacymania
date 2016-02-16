@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'statements/index'
+
   controller :game, as: :game, path: :game, format: false do
     get :show, path: '', format: nil
     post :start
