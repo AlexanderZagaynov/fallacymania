@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'statements/index'
+  resources :statements, only: :index
 
   controller :game, as: :game, path: :game, format: false do
     get :show, path: '', format: nil

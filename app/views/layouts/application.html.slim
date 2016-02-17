@@ -1,5 +1,5 @@
 doctype html
-html lang="#{I18n.locale}"
+html lang=I18n.locale
   head
     meta charset='utf-8'
     meta http-equiv='X-UA-Compatible' content='IE=edge'
@@ -21,12 +21,10 @@ html lang="#{I18n.locale}"
         a.navbar-brand href=root_path FallacyMania!
       #top-nav.collapse.navbar-collapse
         ul.nav.navbar-nav.navbar-left
-          li class=('active' if controller_name == 'fallacies')
-            a href=fallacies_path Fallacies
-            a href=statements_path Statements
+          = navbar_link :fallacies
+          = navbar_link :statements
         ul.nav.navbar-nav.navbar-right
-          li class=('active' if controller_name == 'results')
-            a href=results_path My results
+          = navbar_link :results
           li
             p.navbar-text
               | Language:
