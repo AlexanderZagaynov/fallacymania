@@ -2,9 +2,12 @@ module Randomizable
   extend ActiveSupport::Concern
 
   included do
-    scope :random, -> { order('RANDOM()') }
+    scope :random, -> { order 'RANDOM()' }
+  end
 
-    def self.random_ids(count = 1, with_id = nil)
+  class_methods do
+
+    def random_ids count = 1, with_id = nil
       scope = unscoped.random
       result = Array(with_id)
       if with_id
@@ -15,8 +18,9 @@ module Randomizable
       result
     end
 
-    def self.random_id
+    def random_id
       random_ids.first
     end
+
   end
 end

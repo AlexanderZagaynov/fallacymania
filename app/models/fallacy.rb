@@ -1,7 +1,8 @@
 class Fallacy < ActiveRecord::Base
+  extend FriendlyId
   include Randomizable
 
-  extend FriendlyId; friendly_id :slug
+  friendly_id :slug
 
   translates :name, :description, fallbacks_for_empty_translations: true
   default_scope { includes(:translations) }
@@ -13,7 +14,7 @@ class Fallacy < ActiveRecord::Base
 
   has_many :results, inverse_of: :fallacy, dependent: :destroy
 
-  def cache_key
-    "#{super}-#{Globalize.locale}"
-  end
+  # def cache_key
+  #   "#{super}-#{Globalize.locale}"
+  # end
 end

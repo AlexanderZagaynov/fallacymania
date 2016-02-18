@@ -22,7 +22,7 @@ class FallaciesController < ApplicationController
   private
 
   def set_fallacy
-    @fallacy = Fallacy.find(params[:id])
+    @fallacy = Fallacy.find params[:id]
     @locale = params[:locale].try(:to_sym)
   end
 
