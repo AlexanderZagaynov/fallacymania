@@ -13,7 +13,7 @@ module ExtendedMigration # append some defaults
   module ColumnMethods
 
     def timestamps *args, **options
-      options.reverse_merge! null: false
+      options.reverse_merge! null: false, index: true
       super *args, options
     end
 
@@ -22,7 +22,7 @@ module ExtendedMigration # append some defaults
         polymorphic = {} unless Hash === polymorphic
         polymorphic.reverse_merge! limit: 50
       end
-      options.reverse_merge! null: false, index: true, polymorphic: polymorphic
+      options.reverse_merge! index: true, polymorphic: polymorphic
       super *args, options
     end
 
@@ -30,7 +30,7 @@ module ExtendedMigration # append some defaults
       case type.to_sym
       when :string
         options.reverse_merge! null: false, limit: 255
-      when :text
+      when :integer
         options.reverse_merge! null: false
       when :boolean
         options.reverse_merge! null: false, index: true

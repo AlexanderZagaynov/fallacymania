@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 20160101010101) do
     t.string   "slug",       limit: 255, null: false
   end
 
+  add_index "fallacies", ["created_at"], name: "index_fallacies_on_created_at", using: :btree
   add_index "fallacies", ["slug"], name: "index_fallacies_on_slug", unique: true, using: :btree
+  add_index "fallacies", ["updated_at"], name: "index_fallacies_on_updated_at", using: :btree
 
   create_table "fallacy_translations", force: :cascade do |t|
     t.datetime "created_at",              null: false
@@ -34,8 +36,10 @@ ActiveRecord::Schema.define(version: 20160101010101) do
     t.text     "example",                 null: false
   end
 
+  add_index "fallacy_translations", ["created_at"], name: "index_fallacy_translations_on_created_at", using: :btree
   add_index "fallacy_translations", ["fallacy_id"], name: "index_fallacy_translations_on_fallacy_id", using: :btree
   add_index "fallacy_translations", ["locale"], name: "index_fallacy_translations_on_locale", using: :btree
+  add_index "fallacy_translations", ["updated_at"], name: "index_fallacy_translations_on_updated_at", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.datetime "created_at",                 null: false
@@ -46,27 +50,36 @@ ActiveRecord::Schema.define(version: 20160101010101) do
     t.string   "scope",          limit: 255
   end
 
+  add_index "friendly_id_slugs", ["created_at"], name: "index_friendly_id_slugs_on_created_at", using: :btree
   add_index "friendly_id_slugs", ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true, using: :btree
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type", using: :btree
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
+  add_index "friendly_id_slugs", ["updated_at"], name: "index_friendly_id_slugs_on_updated_at", using: :btree
 
-  create_table "user_sessions", force: :cascade do |t|
+  create_table "sessions", force: :cascade do |t|
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.integer  "user_id",               null: false
     t.string   "token",      limit: 32, null: false
+    t.integer  "user_id",               null: false
   end
 
-  add_index "user_sessions", ["user_id"], name: "index_user_sessions_on_user_id", using: :btree
+  add_index "sessions", ["created_at"], name: "index_sessions_on_created_at", using: :btree
+  add_index "sessions", ["token"], name: "index_sessions_on_token", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
+  add_index "sessions", ["user_id"], name: "index_sessions_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "name",       limit: 255, default: "",    null: false
-    t.boolean  "guest",                  default: false, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "name",           limit: 255, default: "",    null: false
+    t.string   "locale",         limit: 10,                  null: false
+    t.boolean  "guest",                      default: false, null: false
+    t.integer  "sessions_count",             default: 0,     null: false
   end
 
+  add_index "users", ["created_at"], name: "index_users_on_created_at", using: :btree
   add_index "users", ["guest"], name: "index_users_on_guest", using: :btree
+  add_index "users", ["updated_at"], name: "index_users_on_updated_at", using: :btree
 
 end
