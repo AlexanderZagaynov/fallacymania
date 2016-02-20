@@ -18,13 +18,20 @@ gem 'jquery-rails'
 
 # Asset related tools
 gem 'uglifier'
-gem 'therubyracer', platforms: :ruby
+gem 'therubyracer'
 
-# Core extensions
+# Pretty printing for debugging convenience
 gem 'awesome_print', require: false
 
-gem 'globalize'
-gem 'friendly_id'
+# Static pages
+gem 'high_voltage'
+
+# ActiveRecord extensions
+gem 'globalize' # translations
+gem 'paperclip' # attachments
+gem 'friendly_id' # slugs
+
+# Detect user preferred language
 gem 'http_accept_language'
 
 group :production do

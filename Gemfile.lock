@@ -46,6 +46,10 @@ GEM
       sass (>= 3.3.4)
     builder (3.2.2)
     byebug (8.2.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -65,6 +69,7 @@ GEM
     globalize (5.0.1)
       activemodel (>= 4.2.0, < 4.3)
       activerecord (>= 4.2.0, < 4.3)
+    high_voltage (2.4.0)
     http_accept_language (2.0.5)
     i18n (0.7.0)
     jbuilder (2.4.1)
@@ -82,11 +87,18 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     mime-types (2.99)
+    mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
     multi_json (1.11.2)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
+    paperclip (4.3.5)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (= 0.3.0)
     pg (0.18.4)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -120,7 +132,7 @@ GEM
     raindrops (0.15.0)
     rake (10.5.0)
     ref (2.0.0)
-    rspec-core (3.4.2)
+    rspec-core (3.4.3)
       rspec-support (~> 3.4.0)
     rspec-expectations (3.4.0)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -192,9 +204,11 @@ DEPENDENCIES
   coffee-rails
   friendly_id
   globalize
+  high_voltage
   http_accept_language
   jbuilder
   jquery-rails
+  paperclip
   pg
   quiet_assets
   rails (~> 4.2.5)
