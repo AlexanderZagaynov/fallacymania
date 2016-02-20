@@ -5,6 +5,9 @@
 body
   padding-top: 1.2em
 
+.navbar-form .btn-group-sm > .btn
+  @include navbar-vertical-align($navbar-height - $input-height-base + $input-height-small)
+
 .columns-box
   column-count: 4
   column-gap: $grid-gutter-width

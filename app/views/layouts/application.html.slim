@@ -23,16 +23,7 @@ html lang=I18n.locale
         ul.nav.navbar-nav.navbar-left
           = navbar_link :fallacies
         ul.nav.navbar-nav.navbar-right
-          /li
-            p.navbar-text
-              | Language:
-            .btn-group.navbar-btn
-              button.btn.btn-default.dropdown-toggle type='button' data-toggle='dropdown'
-                => I18n.locale
-                span.caret
-              ul.dropdown-menu role='menu'
-                - I18n.another_locales.each do |locale|
-                  li = link_to locale, set_locale_path(locale), method: :put
           li: a Sign Up / Log In
+        == render 'layouts/navbar/locales'
     main
       == yield

@@ -1,0 +1,5 @@
+= form_tag profile_path, class: 'navbar-form navbar-right'
+  .btn-group.btn-group-sm
+    - I18n.available_locales.each do |locale|
+      - btn_class = locale == I18n.locale ? 'btn-primary active disabled' : 'btn-default'
+      button.btn type='submit' name='locale' value=locale class=btn_class = locale

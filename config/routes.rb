@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
+  root controller: :pages, action: :index
+  resource(:profile, controller: :users, only: %i[show update]) { post :update }
 
   resources :fallacies, only: :index
-
-  # controller :settings, as: :set, path: :set, format: false do
-  #   put 'locale/:locale', action: :locale, as: :locale
-  # end
-
-  root controller: :pages, action: :index
 end
