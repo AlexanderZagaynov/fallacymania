@@ -5,7 +5,7 @@ require 'json'
 require 'yaml'
 require 'time'
 
-class FallaciesDownloader
+class FallacySeeds
   GITHUB_API_HOST    = 'api.github.com'
   GITHUB_API_HEADERS = { 'Accept' => 'application/vnd.github.v3+json' }
 
@@ -37,18 +37,22 @@ class FallaciesDownloader
     Pathname.glob(TMP_GLOB).sort
   end
 
-  def update offline = true #false
+  def update offline = false
     git_sha, git_date = git_info unless offline
     tmp_sha, tmp_date = tmp_info
 
     new_info = offline ? [tmp_sha, tmp_date] : [git_sha, git_date]
-    return if new_info.any?(&:nil?) || new_info == yml_info
+
+    return "Can't check for updated source" if new_info.any? &:nil?
+    return 'Already up to date!' if new_info == yml_info
+
     download git_sha, git_date unless offline || git_sha == tmp_sha
 
-    data = %w(abc def) # parse
+    data = parse
     new_info = { 'sha' => new_info.shift, 'date' => new_info.shift.extend(YAML::Time) }
 
-    YAML.dump_stream new_info, *data
+    YML_FILE.write YAML.dump_stream new_info, *data
+    YML_FILE.to_path
   end
 
   private
@@ -58,12 +62,15 @@ class FallaciesDownloader
   end
 
   def git_info
+    puts 'Asking source repo for updates...'
     data = get(path: COMMITS_PATH, query: COMMITS_QUERY)&.first
     [data['sha'], Time.parse(data.dig *%w|commit committer date|).utc] if data.is_a? Hash
   end
 
   def yml_info
     return unless YML_FILE.file?
+    YAML.load_file(YML_FILE).values_at *%w(sha date)
+    # puts YAML.load_stream YML_FILE.read, YML_FILE
   end
 
   def tmp_info
@@ -77,6 +84,8 @@ class FallaciesDownloader
   end
 
   def download git_sha, git_date
+    puts 'Downloading source file...'
+
     data = get path: CONTENT_PATH, query: URI.encode_www_form(ref: git_sha)
     return unless data&.values_at *%w(type encoding) == %w(file base64)
 
@@ -85,15 +94,68 @@ class FallaciesDownloader
 
     @tmp_file = filename
   end
+
+  SQUEEZE_REGEXP = /\s+/
+  CLEANUP_REGEXP = /^(?:#+ (?:Исключено.*$)?)?(?:-+ |")?|"$/ # ..._(?!^)_|"$/ - JS compatible
+  EN_LOCALE_REGEXP = /^\.*[a-z]/i
+  SENTENCE_END_REGEXP = /[[:punct:]]$/
+
+  LOCALES = %i(en ru)
+  ATTRIBUTES = %i(name description example)
+  ATTR_ENUMS = LOCALES.each_with_object({}) { |locale, memo| memo[locale] = ATTRIBUTES.to_enum }
+
+  CRANKY_RECORDS = ['Zero', 'Design Fallacy']
+
+  def parse
+    return unless tmp_file&.file?
+
+    records_data = []
+
+    tmp_file.each_line('', mode: 'rt') do |record|
+      shortened = record.start_with? '#'
+
+      record.gsub! CLEANUP_REGEXP, ''
+      record.strip!
+
+      next if record.start_with? *CRANKY_RECORDS
+
+      ATTR_ENUMS.each_value(&:rewind)
+      prev_locale, attribute = nil
+
+      record_data = {}
+
+      record.each_line.with_index do |line, index|
+        line.gsub! SQUEEZE_REGEXP, ' '
+        line.strip!
+
+        locale = LOCALES.at line =~ EN_LOCALE_REGEXP || 1
+        attribute = ATTR_ENUMS[prev_locale = locale].next if prev_locale != locale || shortened
+
+        if prev_line = (record_data[locale] ||= {})[attribute]
+          dot = '.' unless line[0].downcase == line[0] || prev_line =~ SENTENCE_END_REGEXP
+          prev_line = "#{prev_line}#{dot} "
+        end
+
+        record_data[locale][attribute] = "#{prev_line}#{line}"
+      end
+
+      records_data << record_data
+    end
+    records_data
+  end
 end
 
 namespace :seeds do
 
-  desc 'Update seed data files'
-  task :update do
-    str = FallaciesDownloader.new.update
-    puts str, YAML.load_stream(str).inspect
+  desc 'Update seed data files from github source'
+  task :update, :offline do |t, args|
+    offline = args[:offline] =~ /^(false|f|no|n|0)$/i ? false : !!args[:offline]
+    str = FallacySeeds.new.update offline
+    puts str #, YAML.load_stream(str).inspect
   end
+
+  desc 'Update seed data files from previously downloaded source'
+  task('update:offline') { Rake::Task['seeds:update'].invoke(true) }
 
   desc 'Remove old temporary seed files'
   task :clobber do
