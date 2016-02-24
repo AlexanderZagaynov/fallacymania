@@ -1,12 +1,16 @@
 .panel.panel-default
   .panel-heading
     .panel-title
-      a href=fallacy_path(fallacy, locale: I18n.locale)
-        = fallacy.name
+      = fallacy.name
+      / a href=fallacy_path(fallacy, locale: I18n.locale)
+      /   = fallacy.name
   .panel-body
-    .media
-      .media-left
-        a href=fallacy_path(fallacy, locale: I18n.locale)
-          img.media-object width='64px' height='64px' src=path_to_image('fallacy_thumbnail')
-      .media-body
-        = fallacy.description
+    p = fallacy.description
+    p: em = fallacy.example
+    / .media
+    /   .media-left
+    /     a href=fallacy_path(fallacy, locale: I18n.locale)
+    /       img.media-object width='64px' height='64px' src=path_to_image('fallacy_thumbnail')
+    /   .media-body
+    /     p = fallacy.description
+    /     p: em = fallacy.example
