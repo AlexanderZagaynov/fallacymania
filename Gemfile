@@ -17,8 +17,8 @@ gem 'bootstrap-sass'
 gem 'jquery-rails'
 
 # Asset related tools
-gem 'uglifier'
 gem 'therubyracer'
+gem 'uglifier'
 
 # Pretty printing for debugging convenience
 gem 'awesome_print', require: false
