@@ -13,7 +13,8 @@ gem 'coffee-rails'
 gem 'jbuilder'
 
 # Vendor assets and frameworks
-gem 'bootstrap-sass'
+gem 'autoprefixer-rails'
+gem 'foundation-rails'
 gem 'jquery-rails'
 
 # Asset related tools
