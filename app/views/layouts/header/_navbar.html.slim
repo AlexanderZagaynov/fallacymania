@@ -1,0 +1,12 @@
+aside.title-bar.hide-for-medium data-responsive-toggle='navigation'
+  button.menu-icon type='button' data-toggle=true
+  .title-bar-title Menu
+
+nav#navigation.top-bar
+  ul.menu.top-bar-left.vertical.medium-horizontal
+    / li.menu-text: strong.top-bar-title: a href=root_path FallacyMania!
+    li: a href=root_path FallacyMania!
+    = navbar_link :fallacies
+  ul.menu.top-bar-right
+    li == render 'layouts/header/locales'
+    li: a Sign Up / Log In
