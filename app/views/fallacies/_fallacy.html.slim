@@ -1,10 +1,9 @@
-article.col-lg-3.col-md-4.col-sm-6
+article.column.large-3.medium-6.small-12
   a.thumbnail href='#'
-    .caption
-      .media
-        .media-left
-          img.img-circle.media-object width='64px' height='64px' src=fallacy.thumbnail_url
-        .media-body
-          h1.h4.media-heading = fallacy.name
-      p = fallacy.description
-      p: em = fallacy.example
+    header.media-object
+      .media-object-section
+        img.img-circle width='64px' height='64px' src=fallacy.thumbnail_url
+      .media-object-section
+        h1.lead = fallacy.name
+    p = fallacy.description
+    p: em = fallacy.example

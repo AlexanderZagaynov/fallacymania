@@ -3,3 +3,34 @@ button[name='locale']
   transition-property: all
   &[disabled], &:hover, &:focus
     opacity: inherit
+
+article > a.thumbnail:only-child
+  $line-height: $header-lineheight
+
+  color: $body-font-color
+  transition-property: all
+  &:hover, &:focus
+    color: $anchor-color-hover
+
+  +breakpoint(medium)
+    height: 12em * $line-height
+    overflow: hidden
+    .lead
+      height: 2em * $line-height
+    // .media-object-section
+    //   vertical-align: middle
+
+  img
+    border-radius: 50%
+  // p
+  //   overflow-y: scroll
+  *
+    margin: 0
+    overflow: hidden
+    // text-overflow: ellipsis
+    line-height: $line-height
+  > *
+    padding: $global-padding / 4
+
+  // header.media-object
+  //   margin-bottom: $mediaobject-margin-bottom / 2
