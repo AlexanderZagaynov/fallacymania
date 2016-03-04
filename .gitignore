@@ -2,8 +2,7 @@
 /.bundle
 
 # Logs and tempfiles
-/log/*
-!/log/.keep
+/log
 /tmp
 
 # SQLite database files
