@@ -1,0 +1,5 @@
+# don't export (archive) them (for production)
+.gitattributes export-ignore
+.gitignore export-ignore
+test export-ignore
+spec export-ignore
