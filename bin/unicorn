@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require_relative '../config/boot'
+require 'optparse'
+
+unless ARGV.getopts(*%w[c config-file]).values.any?
+  ARGV << '--config-file' << File.expand_path('../../config/unicorn.rb', __FILE__)
+end
+
+load Gem.bin_path *%w(unicorn unicorn_rails)
