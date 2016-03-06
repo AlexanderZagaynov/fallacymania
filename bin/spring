@@ -1,11 +1,5 @@
 #!/usr/bin/env ruby
 unless defined? Spring
-  require 'rubygems'
-  require 'bundler'
-
-  Bundler.default_lockfile.read.match(/^GEM$.*?^    (?:  )*spring \((.*?)\)$.*?^$/m) do |match|
-    Gem.paths = { "GEM_PATH" => [Bundler.bundle_path.to_s, *Gem.path].uniq }
-    gem 'spring', match[1]
-    require 'spring/binstub'
-  end
+  require 'bundler/setup'
+  require 'spring/binstub'
 end

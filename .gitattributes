@@ -1,5 +1,6 @@
 # don't export (archive) them (for production)
 .gitattributes export-ignore
 .gitignore export-ignore
+bin/spring export-ignore
 test export-ignore
 spec export-ignore

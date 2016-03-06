@@ -1,7 +1,11 @@
 source 'https://rubygems.org'
 ruby File.read('.ruby-version').chomp
 
+# Application engine
 gem 'rails', '~> 4.2.5'
+
+# Server engine
+gem 'unicorn'
 
 # Database adapters
 gem 'pg'
@@ -33,10 +37,6 @@ gem 'friendly_id' # slugs
 
 # Detect user preferred language
 gem 'http_accept_language'
-
-group :production do
-  gem 'unicorn'
-end
 
 group :development do
   gem 'spring'
