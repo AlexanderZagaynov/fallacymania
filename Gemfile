@@ -10,6 +10,9 @@ gem 'unicorn'
 # Database adapters
 gem 'pg'
 
+# Logging tools
+gem 'logging'
+
 # DSLs
 gem 'slim-rails'
 gem 'sass-rails'

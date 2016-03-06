@@ -10,6 +10,7 @@ module FallacyMania
     cattr_reader(:nickname) { parent_name.demodulize.downcase }
 
     config.assets.version = '1.0'
+    config.logger = Logging.logger['Rails']
     config.filter_parameters << :password
     config.action_dispatch.cookies_serializer = :json
     config.active_record.raise_in_transactional_callbacks = true
